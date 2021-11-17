@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary;
 
-namespace MainProject.Controllers
+namespace SecondaryApi.Controllers
 {
-    [Route("api/Home")]
     [ApiController]
+    [Route("api/Home")]
     public class HomeController : ControllerBase
     {
+        public HomeController() { }
+
         [HttpGet("Get")]
         public string Get()
         {
-            return Constants.HelloWorld;
+            return Constants.Goodbye;
         }
     }
 }

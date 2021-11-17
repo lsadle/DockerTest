@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  mainproject:
+    image: ${DOCKER_REGISTRY-}mainproject
+    build:
+      context: .
+      dockerfile: MainProject/Dockerfile
+
+  secondaryapi:
+    image: ${DOCKER_REGISTRY-}secondaryapi
+    build:
+      context: .
+      dockerfile: SecondaryApi/Dockerfile
+

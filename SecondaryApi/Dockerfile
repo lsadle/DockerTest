@@ -6,17 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["MainProject/MainProject.csproj", "MainProject/"]
+COPY ["SecondaryApi/SecondaryApi.csproj", "SecondaryApi/"]
 COPY ["MyLibrary/MyLibrary.csproj", "MyLibrary/"]
-RUN dotnet restore "MainProject/MainProject.csproj"
+RUN dotnet restore "SecondaryApi/SecondaryApi.csproj"
 COPY . .
-WORKDIR "/src/MainProject"
-RUN dotnet build "MainProject.csproj" -c Release -o /app/build
+WORKDIR "/src/SecondaryApi"
+RUN dotnet build "SecondaryApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MainProject.csproj" -c Release -o /app/publish
+RUN dotnet publish "SecondaryApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MainProject.dll"]
+ENTRYPOINT ["dotnet", "SecondaryApi.dll"]
